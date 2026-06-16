@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>HANSEOUL • Korean • Sushi • Drinks</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins;
+}
+
+body{
+background:#0b1018;
+color:white;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+header{
+
+height:100vh;
+
+display:flex;
+
+align-items:center;
+
+padding:8%;
+
+background:
+linear-gradient(
+90deg,
+rgba(0,0,0,.75),
+rgba(0,0,0,.2)
+),
+
+url("https://images.unsplash.com/photo-1555126634-323283e090fa");
+
+background-size:cover;
+
+}
+
+.hero h1{
+
+font-size:78px;
+
+}
+
+.hero span{
+color:#ff5252;
+}
+
+.hero p{
+
+margin:20px 0;
+
+font-size:20px;
+
+}
+
+.hero button{
+
+padding:18px 36px;
+
+border:none;
+
+background:#ff5252;
+
+color:white;
+
+border-radius:16px;
+
+cursor:pointer;
+
+font-size:18px;
+
+}
+
+.container{
+
+display:grid;
+
+grid-template-columns:3fr 1fr;
+
+gap:30px;
+
+padding:40px;
+
+}
+
+.grid{
+
+display:grid;
+
+grid-template-columns:
+repeat(auto-fit,minmax(260px,1fr));
+
+gap:25px;
+
+}
+
+.card{
+
+background:#161b22;
+
+border-radius:20px;
+
+overflow:hidden;
+
+}
+
+.card img{
+
+width:100%;
+height:220px;
+
+object-fit:cover;
+
+}
+
+.info{
+padding:18px;
+}
+
+.price{
+
+font-size:24px;
+
+color:#ffc857;
+
+margin-top:10px;
+
+}
+
+.order{
+
+width:100%;
+
+padding:14px;
+
+margin-top:14px;
+
+border:none;
+
+background:#ff5252;
+
+color:white;
+
+border-radius:12px;
+
+cursor:pointer;
+
+}
+
+.cart{
+
+background:#161b22;
+
+padding:24px;
+
+border-radius:20px;
+
+position:sticky;
+
+top:20px;
+
+height:max-content;
+
+}
+
+.item{
+
+background:#222;
+
+padding:14px;
+
+margin-top:12px;
+
+border-radius:14px;
+
+}
+
+.qty{
+
+display:flex;
+
+gap:10px;
+
+margin-top:10px;
+
+align-items:center;
+
+}
+
+.qty button{
+
+width:34px;
+
+height:34px;
+
+border:none;
+
+border-radius:10px;
+
+cursor:pointer;
+
+}
+
+.checkout{
+
+margin-top:20px;
+
+width:100%;
+
+padding:16px;
+
+background:#ff5252;
+
+border:none;
+
+border-radius:14px;
+
+color:white;
+
+cursor:pointer;
+
+}
+
+.total{
+
+margin-top:20px;
+
+font-size:26px;
+
+color:#ff5252;
+
+}
+
+.section{
+
+margin-bottom:70px;
+
+}
+
+h2{
+margin-bottom:25px;
+}
+
+@media(max-width:900px){
+
+.container{
+grid-template-columns:1fr;
+}
+
+.hero h1{
+font-size:48px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<div class="hero">
+
+<h1>
+
+HAN<span>SEOUL</span>
+
+</h1>
+
+<p>
+
+Korean Food • Sushi • Drinks
+
+</p>
+
+<button
+onclick="
+document
+.getElementById(
+'menu'
+)
+.scrollIntoView()
+">
+
+Explore Menu
+
+</button>
+
+</div>
+
+</header>
+
+<div class="container">
+
+<div id="menu">
+
+<div class="section">
+
+<h2>
+🇰🇷 Korean Food
+</h2>
+
+<div
+class="grid"
+id="korean">
+</div>
+
+</div>
+
+<div class="section">
+
+<h2>
+🍣 Sushi Menu
+</h2>
+
+<div
+class="grid"
+id="sushi">
+</div>
+
+</div>
+
+<div class="section">
+
+<h2>
+🥤 Drinks
+</h2>
+
+<div
+class="grid"
+id="drink">
+</div>
+
+</div>
+
+</div>
+
+<div>
+
+<div class="cart">
+
+<h2>
+🛒 Pesanan
+</h2>
+
+<div id="cart">
+
+Belum ada pesanan
+
+</div>
+
+<div
+class="total"
+id="total">
+
+Rp0
+
+</div>
+
+<button
+class="checkout"
+onclick="checkout()">
+
+Checkout WhatsApp
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const nomorWA="6285845980104";
+
+const korean=[
+
+["Korean Chicken",45000,"https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec"],
+
+["Ramyeon",35000,"https://images.unsplash.com/photo-1553163147-622ab57be1c7"],
+
+["Bibimbap",42000,"https://images.unsplash.com/photo-1512058564366-18510be2db19"],
+
+["Tteokbokki",38000,"https://images.unsplash.com/photo-1590301157890-4810ed352733"]
+
+];
+
+const sushi=[
+
+["Salmon Sushi",55000,"https://images.unsplash.com/photo-1579871494447-9811cf80d66c"],
+
+["Dragon Roll",62000,"https://images.unsplash.com/photo-1553621042-f6e147245754"],
+
+["California Roll",52000,"https://images.unsplash.com/photo-1562158070-622a8d4c0f38"],
+
+["Tempura Roll",57000,"https://images.unsplash.com/photo-1617196039897-f1d1b13c38f2"]
+
+
+];
+
+const drink=[
+
+["Matcha Latte",25000,"https://images.unsplash.com/photo-1515823064-d6e0c04616a7"],
+
+["Strawberry Milk",22000,"https://images.unsplash.com/photo-1544145945-f90425340c7e"],
+
+["Brown Sugar Boba",26000,"https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd"],
+
+["Yuzu Lemon",23000,"https://images.unsplash.com/photo-1499636136210-6f4ee915583e"]
+
+];
+
+function render(data,id){
+
+const box=
+document.getElementById(id);
+
+data.forEach(x=>{
+
+box.innerHTML+=`
+
+<div class="card">
+
+<img src="${x[2]}">
+
+<div class="info">
+
+<h3>${x[0]}</h3>
+
+<div class="price">
+
+Rp${x[1].toLocaleString()}
+
+</div>
+
+<button
+class="order"
+onclick="add(
+'${x[0]}',
+${x[1]}
+)">
+
+Order
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+render(korean,"korean");
+render(sushi,"sushi");
+render(drink,"drink");
+
+let cart=[];
+
+function add(name,price){
+
+let item=
+cart.find(
+x=>
+x.name===name
+);
+
+if(item){
+
+item.qty++;
+
+}
+
+else{
+
+cart.push({
+
+name,
+price,
+qty:1
+
+});
+
+}
+
+show();
+
+}
+
+function show(){
+
+const box=
+document.getElementById(
+"cart"
+);
+
+box.innerHTML="";
+
+let total=0;
+
+if(
+cart.length===0
+){
+
+box.innerHTML=
+"Belum ada pesanan";
+
+}
+
+cart.forEach(
+(x,i)=>{
+
+total+=
+x.price*
+x.qty;
+
+box.innerHTML+=`
+
+<div class="item">
+
+<b>
+
+${x.name}
+
+</b>
+
+<br>
+
+Rp${x.price.toLocaleString()}
+
+<div class="qty">
+
+<button
+onclick="minus(${i})">
+
+−
+
+</button>
+
+${x.qty}
+
+<button
+onclick="plus(${i})">
+
++
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+document
+.getElementById(
+"total"
+)
+
+.innerHTML=
+
+"Rp"+
+
+total.toLocaleString();
+
+}
+
+function plus(i){
+
+cart[i].qty++;
+
+show();
+
+}
+
+function minus(i){
+
+cart[i].qty--;
+
+if(
+cart[i].qty<=0
+){
+
+cart.splice(i,1);
+
+}
+
+show();
+
+}
+
+function checkout(){
+
+if(
+cart.length===0
+){
+
+alert(
+"Keranjang kosong"
+);
+
+return;
+
+}
+
+let pesan=
+"🍽️ PESANAN BARU\n\n";
+
+let total=0;
+
+cart.forEach(x=>{
+
+total+=
+x.price*
+x.qty;
+
+pesan+=
+
+`${x.name}
+
+Qty ${x.qty}
+
+Rp${(
+x.price*
+x.qty
+).toLocaleString()}
+
+\n`;
+
+});
+
+pesan+=
+
+`\nTOTAL:
+Rp${total.toLocaleString()}`;
+
+window.open(
+
+`https://wa.me/${nomorWA}?text=${encodeURIComponent(pesan)}`,
+
+"_blank"
+
+);
+
+}
+
+</script>
+
+</body>
+
+</html>
